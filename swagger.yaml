@@ -92,8 +92,8 @@ paths:
 
   /register:
     post:
-      summary: Register a new user
-      description: Register a new user in the system.
+      summary: Register a new account
+      description: Register a new account in the system.
       operationId: register
       requestBody:
         required: true
@@ -136,7 +136,7 @@ paths:
   /verify-email:
     post:
       summary: Verify email address
-      description: Verify the user's email address using the token sent during registration.
+      description: Verify the account's email address using the token sent during registration.
       operationId: verifyEmail
       requestBody:
         required: true
@@ -158,7 +158,7 @@ paths:
   /forgot-password:
     post:
       summary: Request a password reset
-      description: Send a password reset link to the user's email.
+      description: Send a password reset link to the account's email.
       operationId: forgotPassword
       requestBody:
         required: true
@@ -203,7 +203,7 @@ paths:
   /reset-password:
     post:
       summary: Reset password
-      description: Reset the user’s password using the provided reset token.
+      description: Reset the account’s password using the provided reset token.
       operationId: resetPassword
       requestBody:
         required: true
@@ -230,14 +230,14 @@ paths:
         '400':
           description: Invalid token or mismatched passwords
 
-  /users:
+  /accounts:
     get:
-      summary: Get all users (Admin only)
-      description: Admins can retrieve a list of all users.
-      operationId: getAll
+      summary: Get all accounts (Admin only)
+      description: Admins can retrieve a list of all accounts.
+      operationId: getAllAccounts
       responses:
         '200':
-          description: List of users
+          description: List of accounts
           content:
             application/json:
               type: array
@@ -251,21 +251,21 @@ paths:
         '401':
           description: Unauthorized
 
-  /users/{id}:
+  /accounts/{id}:
     get:
-      summary: Get a user by ID
-      description: Retrieve a specific user's details.
-      operationId: getById
+      summary: Get an account by ID
+      description: Retrieve a specific account's details.
+      operationId: getAccountById
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: integer
-          description: User ID
+          description: Account ID
       responses:
         '200':
-          description: User found
+          description: Account found
           content:
             application/json:
               type: object
@@ -275,15 +275,15 @@ paths:
                 email:
                   type: string
         '404':
-          description: User not found
+          description: Account not found
         '401':
           description: Unauthorized
 
-  /users:
+  /accounts:
     post:
-      summary: Create a new user (Admin only)
-      description: Admins can create a new user.
-      operationId: create
+      summary: Create a new account (Admin only)
+      description: Admins can create a new account.
+      operationId: createAccount
       requestBody:
         required: true
         content:
@@ -321,17 +321,17 @@ paths:
                 - role
       responses:
         '200':
-          description: User created successfully
+          description: Account created successfully
         '400':
           description: Invalid data
         '401':
           description: Unauthorized
 
-  /users/{id}:
+  /accounts/{id}:
     put:
-      summary: Update user information
-      description: Update a user's details. Only admins can update the role.
-      operationId: update
+      summary: Update account information
+      description: Update an account's details. Only admins can update the role.
+      operationId: updateAccount
       parameters:
         - name: id
           in: path
@@ -374,17 +374,17 @@ paths:
                 - confirmPassword
       responses:
         '200':
-          description: User updated successfully
+          description: Account updated successfully
         '400':
           description: Invalid data
         '401':
           description: Unauthorized
 
-  /users/{id}:
+  /accounts/{id}:
     delete:
-      summary: Delete a user
-      description: Delete a specific user. Only admins or the user themselves can delete an account.
-      operationId: delete
+      summary: Delete an account
+      description: Delete a specific account. Only admins or the account owner can delete the account.
+      operationId: deleteAccount
       parameters:
         - name: id
           in: path
@@ -393,7 +393,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: User deleted successfully
+          description: Account deleted successfully
         '401':
           description: Unauthorized
 
